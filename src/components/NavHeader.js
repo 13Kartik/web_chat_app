@@ -1,0 +1,39 @@
+import React, { useContext } from 'react'
+import Navbar from 'react-bootstrap/Navbar';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { UserContext } from "../context/UserContext";
+
+function NavHeader() {
+  const {senderPic} = useContext(UserContext);
+  return (
+    <>
+    <div className='nav-header'>
+        <div className='profile-pic ms-2'>
+            <img src={senderPic} alt='profile pic'/>
+        </div>
+    </div>
+
+    <Navbar className="bg-body-tertiary justify-content-center">
+    <Form inline='true'>
+      <Row>
+        <Col xs="auto">
+          <Form.Control
+            type="text"
+            placeholder="Search"
+            className=" mr-sm-2"
+          />
+        </Col>
+        <Col xs="auto">
+          <Button type="button">Search</Button>
+        </Col>
+      </Row>
+    </Form>
+  </Navbar>
+  </>
+  )
+}
+
+export default NavHeader
