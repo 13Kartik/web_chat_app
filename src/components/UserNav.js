@@ -26,7 +26,6 @@ function UserNav() {
       }));
       const filtered_data=usersData.filter(remove_sender);
       set_user_list(filtered_data);
-      console.log(filtered_data);
     });
 
     // Return a cleanup function to unsubscribe when component unmounts
@@ -43,11 +42,13 @@ function UserNav() {
   },[]);
 
   return (
-    <ListGroup>
-        {user_list.map((user_obj)=>{
-            return <User key={user_obj.id} info={user_obj}/>
-        })}
-    </ListGroup>
+    <div className='user-container'>   
+      <ListGroup>
+          {user_list.map((user_obj)=>{
+              return <User key={user_obj.id} info={user_obj}/>
+          })}
+      </ListGroup>
+    </div>
   )
 }
 

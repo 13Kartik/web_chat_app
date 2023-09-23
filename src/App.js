@@ -14,7 +14,7 @@ function App() {
   return (
     <StateProvider>
       {isAuth ? 
-            <div className="App-container" style={{ height: window.innerHeight, width: window.innerWidth }}>
+            <div className="App-container bg-dark" style={{ height: window.innerHeight, width: window.innerWidth }}>
               <div className='nav-container'>
                   <NavHeader/>
                   <UserNav/>

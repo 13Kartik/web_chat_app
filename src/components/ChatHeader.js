@@ -8,11 +8,11 @@ function ChatHeader() {
   }, [receiverPic,receiverName]);
 
   return (
-    <div className='chat-header'>
+    <div className='chat-header bg-primary rounded-end'>
         <div className='profile-pic ms-2'>
-            <img src={receiverPic} alt='user pic'/>
+            <img src={receiverPic} alt='pic'/>
         </div>
-        <div className='user-name ms-2 fs-5'>
+        <div className='user-name text-light ms-2 fs-5'>
           {receiverName} 
         </div>
     </div>

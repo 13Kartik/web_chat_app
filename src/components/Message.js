@@ -12,7 +12,7 @@ function Message(props) {
   return (
     <>
     <div className={`d-flex ${isMe(props.sender)}`}>
-      <Card bg='primary' text='light' className='message mb-2 ps-1 pe-1 w-auto h-auto'>
+      <Card bg='primary' text='light' className='message mb-2 ps-1 pe-1 w-auto h-auto fs-5'>
         <Card.Body>
           {/* <Card.Title>{props.sender}</Card.Title> */}
           <Card.Text>

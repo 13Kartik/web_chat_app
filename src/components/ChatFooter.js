@@ -36,8 +36,8 @@ function ChatFooter() {
   };
 
   return (
-    <div className='chat-footer'>
-      <InputGroup className="m-3">
+    <div className='chat-footer rounded'>
+      <InputGroup className='m-3'>
         <Form.Control
           value={message_text}
           onChange={(e) => set_message_text(e.target.value)}
@@ -45,7 +45,7 @@ function ChatFooter() {
           placeholder="Enter Message"
           aria-describedby="basic-addon2"
         />
-        <InputGroup.Text id="basic-addon2" onClick={send_message} className='btn btn-primary fs-5 fw-3 text-light'>Send</InputGroup.Text>
+        <InputGroup.Text id="basic-addon2" onClick={send_message} className='btn btn-primary fs-5 text-light'>Send</InputGroup.Text>
       </InputGroup>
     </div>
   );

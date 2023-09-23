@@ -40,7 +40,6 @@ export const Chat = () => {
           console.log('new room created');
         }
         else{
-          console.log('room exist');
           const chat_room = chat_room_snapshots.docs[0];
           messagesRef = collection(chat_room.ref, "messages");
         }
