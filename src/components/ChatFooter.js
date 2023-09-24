@@ -37,7 +37,7 @@ function ChatFooter() {
 
   return (
     <div className='chat-footer rounded'>
-      <InputGroup className='m-3'>
+      <InputGroup className='msg-type'>
         <Form.Control
           value={message_text}
           onChange={(e) => set_message_text(e.target.value)}

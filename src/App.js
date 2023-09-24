@@ -1,33 +1,22 @@
 import './App.css';
 import { useState } from "react";
-import { Chat } from './components/ChatContainer';
-import ChatFooter from './components/ChatFooter';
-import ChatHeader from './components/ChatHeader';
+import NavPage from './components/NavPage';
+import ChatPage from './components/ChatPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavHeader from './components/NavHeader';
-import UserNav from './components/UserNav';
 import StateProvider from './context/UserContext';
 import { Auth } from './components/Auth';
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+  const isMobile = window.innerWidth<601;
   return (
     <StateProvider>
       {isAuth ? 
             <div className="App-container bg-dark" style={{ height: window.innerHeight, width: window.innerWidth }}>
-              <div className='nav-container'>
-                  <NavHeader/>
-                  <UserNav/>
-              </div>
-              <div className='chat-page'>
-                  <ChatHeader/>
-                  <Chat/>
-                  <ChatFooter/>
-              </div>
-          </div>
-
+              <NavPage isMobile={isMobile}/>
+              <ChatPage isMobile={isMobile}/>             
+            </div>
       :<Auth setIsAuth={setIsAuth}/>}
-
     </StateProvider>
   );
 }
