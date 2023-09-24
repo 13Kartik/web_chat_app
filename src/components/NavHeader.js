@@ -16,21 +16,16 @@ function NavHeader() {
           </div>
       </div>
 
-      <Navbar className="search-bar justify-content-center">
-      <Form inline='true'>
-        <Row>
-          <Col xs="auto">
-            <Form.Control
-              type="text"
-              placeholder="Search"
-              className=" mr-sm-2"
-            />
-          </Col>
-          <Col xs="auto">
-            <Button type="button">Search</Button>
-          </Col>
-        </Row>
-      </Form>
+      <Navbar className="search-bar">
+        <Form>
+          <Form.Control
+            type="text"
+            placeholder="Search Users"
+            className=" mr-sm-2"
+            style={{width:'70%'}}
+          />
+          <Button type="button" style={{width:'25%'}}>Search</Button>
+        </Form>
       </Navbar>
     </>
   )
