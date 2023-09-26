@@ -240,18 +240,42 @@
   }
 
   .user-item{
-    height: 10%;
+    height: 11%;
   }
 
   .user .profile-pic{
-    height: 100% ;
-    width: 14.25%;
+    height: 95% ;
+    width: 15.5%;
   }
+
   .user-text{
-    width: 83%;
+    width: 82%;
   }
   .chat-header .profile-pic,.nav-header .profile-pic{
     height: 74.5%;
     width: 16%;
+  }
+}
+
+@media only screen and (max-width: 400px){
+  .user-item{
+    height: 12%;
+  }
+  .user .profile-pic{
+    width: 16.9%;
+  }
+  .user-text{
+    width: 81%;
+  }
+}
+
+@media only screen and (max-width: 380px){
+  .user .profile-pic{
+    height: 100%;
+    width: 16.5%;
+  }
+
+  .user-text{
+    width: 81%;
   }
 }
