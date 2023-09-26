@@ -10,9 +10,8 @@ function Message(props) {
   }
 
   return (
-    <>
     <div className={`d-flex ${isMe(props.sender)}`}>
-      <Card bg='primary' text='light' className='message mb-2 ps-1 pe-1 w-auto h-auto fs-5'>
+      <Card bg='primary' text='light' className='message mb-2 ps-1 pe-1 fs-5'>
         <Card.Body>
           <Card.Text>
             {props.text}
@@ -20,15 +19,6 @@ function Message(props) {
         </Card.Body>
       </Card>
     </div>
-
-    <div className='d-flex'>
-        <div className='message'>
-
-        </div>
-    </div>
-
-    </>
-
   );
 }
 

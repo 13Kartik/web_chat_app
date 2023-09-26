@@ -53,20 +53,17 @@
   height: 75%;
 }
 
-.user-container{
-  height: 80%;
-  overflow-y: auto;
-}
-
 .profile-pic{
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  /* height: 40px;
-  width: 40px; */
-  height: 12%;
-  width: 12%;
+}
+
+.profile-pic img{
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
 }
 
 /* old working dimentions */
@@ -84,50 +81,62 @@
   width: 14.1%;
 }
 
-.profile-pic img{
-  height: 100%;
-  width: 100%;
-  border-radius: 50%;
-}
-
 /* user row */
 
 .user-container{
   display: flex;
+  height: 80%;
+  overflow-y: auto;
   flex-direction: column;
 }
 
-.user{
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-evenly;
-  margin-top: 1.5%;
+.list-group{
+  height: 100%;
 }
 
-.active{
-  background-color: #0d6efd !important;
+.user-item{
+  height: 11%;
 }
 
 .user-item:hover{
   background-color: transparent !important;
 }
 
+.user{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user .profile-pic{
+   height: 100% ;
+   width: 13%;
+}
+
 .user-text{
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
   align-items:flex-start;
-  width: 80%;
-  height: 10%;
+  width: 84.5%;
+  height: 100%;
 }
+
 .user-name{
+  height: 50%;
   font-weight: 500;
   overflow: hidden;
 }
 .user-last-message{
+  height: 50%;
   font-weight: 400;
   overflow: hidden;
+  text-align: start;
+}
+
+.active{
+  background-color: #0d6efd !important;
 }
 
 /* chat page */
@@ -151,6 +160,11 @@
   height: 80%;
   padding: 1%;
   overflow-y: auto;
+}
+
+.message{
+  border: 0px !important;
+  max-width: 90%;
 }
 
 .chat-footer{
@@ -190,7 +204,11 @@
   width: 0;
   height: 0;
   border-top-right-radius: 3px;
-  border-left: 12px solid #3B71CA;
+
+  border-left-color: #0d6efd;
+  border-left-width: 12px;
+  border-left-style: solid ;
+
   border-bottom: 12px solid transparent;
 }
 
@@ -199,7 +217,11 @@
   width: 0;
   height: 0;
   border-top-left-radius: 3px;
-  border-right: 12px solid #3B71CA;
+
+  border-right-color: #0d6efd;
+  border-right-width: 12px;
+  border-right-style: solid ;
+
   border-bottom: 12px solid transparent;
 }
 
@@ -217,6 +239,17 @@
     width: 95%;
   }
 
+  .user-item{
+    height: 10%;
+  }
+
+  .user .profile-pic{
+    height: 100% ;
+    width: 14.25%;
+  }
+  .user-text{
+    width: 83%;
+  }
   .chat-header .profile-pic,.nav-header .profile-pic{
     height: 74.5%;
     width: 16%;

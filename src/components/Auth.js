@@ -1,6 +1,6 @@
 import { auth, provider } from "../firebase-config.js";
 import { signInWithPopup } from "firebase/auth";
-import { useContext, useEffect } from "react";
+import React,{ useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext.js";
 import { db } from "../firebase-config";
 import { doc, setDoc } from "firebase/firestore";
@@ -45,20 +45,11 @@ export const Auth = ({ setIsAuth }) => {
   };
 
   useEffect(() => {
-    const getLocal = () => {
       setSenderId(localStorage.senderId);
       setSenderName(localStorage.senderName);
       setSenderPic(localStorage.senderPic);
 
-      if (senderId && senderName && senderPic) {
-        setIsAuth(true);
-        return true;
-      } else {
-        return false;
-      }
-    };
-
-    getLocal();
+      if(senderId && senderName && senderPic) setIsAuth(true);
   }, [senderId, senderName, senderPic]);
 
   if (!senderId || !senderName || !senderPic) {

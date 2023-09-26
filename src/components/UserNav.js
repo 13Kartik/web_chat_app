@@ -13,28 +13,22 @@ function UserNav() {
     return e.id !== senderId;
   }
 
-  const get_users = async () =>{
-    const users = collection(db,'users');
-    
-    const users_query = query(users);
-
-    // Set up a real-time listener for message updates
-    const unsubscribe = onSnapshot(users_query, (snapshot) => {
-      const usersData = snapshot.docs.map((doc) => ({
-        id: doc.id, // Include the document ID for React key
-        ...doc.data(),
-      }));
-      const filtered_data=usersData.filter(remove_sender);
-      set_user_list(filtered_data);
-    });
-
-    // Return a cleanup function to unsubscribe when component unmounts
-    return () => unsubscribe();
-  }
-
   useEffect(()=>{
     try{
-      get_users();
+      const users = collection(db,'users');
+    
+      const users_query = query(users);
+
+      const unsubscribe = onSnapshot(users_query, (snapshot) => {
+        const usersData = snapshot.docs.map((doc) => ({
+          id: doc.id, 
+          ...doc.data(),
+        }));
+        const filtered_data=usersData.filter(remove_sender);
+        set_user_list(filtered_data);
+      });
+      // Return a cleanup function to unsubscribe when component unmounts
+      return () => unsubscribe();
     }
     catch(err){
       console.error(err);
