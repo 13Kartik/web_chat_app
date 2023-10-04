@@ -2,33 +2,25 @@ import React,{ useContext, useEffect, useState } from 'react'
 import ListGroup from 'react-bootstrap/ListGroup';
 import { UserContext } from '../context/UserContext';
 
-function User({info}) {
-    const {receiverId,setReceiverId,setReceiverName,setReceiverPic,last_messages,setIsBot} = useContext(UserContext);
+function Bot({info}) {
+    const {receiverId,setReceiverId,setReceiverName,setReceiverPic,setIsBot,chatBotMessages} = useContext(UserContext);
     const [last_message,set_last_message] = useState(''); 
 
-    const change_room = (user) =>{
-        setReceiverId(user.id);
-        setReceiverName(user.username);
-        setReceiverPic(user.userPic);
-        setIsBot(false);
+    const change_room = (bot) =>{
+        setReceiverId(bot.id);
+        setReceiverName(bot.username);
+        setReceiverPic(bot.userPic);
+        setIsBot(true);
     }
 
     useEffect(()=>{
         try{
-            const msg_obj = last_messages.filter((message)=>{
-                return message[0].includes(info.id);
-            });
-            if(msg_obj.length){
-                if(msg_obj[0][1].type==='text')
-                    set_last_message(msg_obj[0][1].data);
-                else
-                    set_last_message('file....');
-            }
+            set_last_message(chatBotMessages[chatBotMessages.length-1].data);
         }
         catch(err){
-            //ignore error xd
+            //ignore xd
         }
-    },[last_messages]);
+    },[chatBotMessages]);
 
   return (
     <ListGroup.Item key={info.id} onClick={()=>{change_room(info)}} style={{backgroundColor:'#2d3339',border:'0'}} className={`user-item btn mb-1 text-light ${info.id===receiverId ? 'active' : ''}`}>
@@ -49,6 +41,4 @@ function User({info}) {
   )
 }
 
-User.propTypes = {}
-
-export default User
+export default Bot

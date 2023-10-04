@@ -4,11 +4,9 @@ import {UserContext} from "../context/UserContext";
 import { db } from "../firebase-config";
 import { addDoc, collection } from "firebase/firestore";
 
-export let room_index = null;
-
 export const Chat = () => {
   const [messages, setMessages] = useState([]);
-  const {senderId,receiverId,chat_rooms} = useContext(UserContext);
+  const {senderId,receiverId,set_active_room_id,chat_rooms,translate} = useContext(UserContext);
   
   useEffect(() => {
     try{
@@ -17,13 +15,13 @@ export const Chat = () => {
 
         if(current_room){
             setMessages(current_room.messages);
-            room_index = chat_rooms.indexOf(current_room);
+            set_active_room_id(current_room.id);
         }
         else{
             const new_room = { 'participants':[senderId,receiverId],'messages':[] }
-            addDoc(collection(db,'chat_rooms'),new_room);
+            const id = addDoc(collection(db,'chat_rooms'),new_room);
             setMessages([]);
-            room_index = chat_rooms.indexOf(new_room);
+            set_active_room_id(id);
         }
       };
     }
@@ -33,9 +31,9 @@ export const Chat = () => {
   },[chat_rooms,receiverId]);
 
   return (
-    <div className='chat-container'>
+    <div className='chat-container' style={{height:`${translate?'70%':'80%'}`}}>
       {messages.map((message,index) => (
-        <Message key={index} text={message.text} sender={message.sender} />
+        <Message key={index} data={message.data} type={message.type} sender={message.sender} />
       ))}
     </div>
   );

@@ -5,9 +5,13 @@ import ChatHeader from './ChatHeader';
 import Introduction from './Introduction';
 import {UserContext} from "../context/UserContext";
 
+//Bot
+import { BotChat } from '../bot_components/BotChatContainer';
+import BotChatFooter from '../bot_components/BotChatFooter'
+
 const ChatPage = ({ isMobile }) => {
 
-  const { receiverId } = useContext(UserContext);
+  const { receiverId,isBot } = useContext(UserContext);
 
   return (
     <>
@@ -16,8 +20,17 @@ const ChatPage = ({ isMobile }) => {
             {receiverId?
                     <>
                       <ChatHeader/>
-                      <Chat/>
-                      <ChatFooter/>  
+                      {isBot?
+                        <>
+                        <BotChat/>
+                        <BotChatFooter/>
+                        </>
+                      :
+                        <>
+                        <Chat/>
+                        <ChatFooter/>  
+                        </>
+                      }
                     </>
             :<Introduction/>
             }    

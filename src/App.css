@@ -157,34 +157,70 @@
 
 .chat-container{
   width: 100%;
-  height: 80%;
   padding: 1%;
   overflow-y: auto;
 }
 
 .message{
   border: 0px !important;
-  max-width: 90%;
+  height:auto;
+  width:auto;
 }
 
 .chat-footer{
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 10%;
   background-color: #394047;
   justify-content: center;
   align-items: center;
 }
 
+.translation-options{
+  height: 50%;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.translation-options select{
+  width: 24%;
+  /* max-height: 30%;
+  overflow-y: auto; */
+}
+
+.translation-options button{
+  width: 10%;
+}
+
 .msg-type{
   display: flex !important;
   align-items: center !important;
-  height: 70% !important;
-  width: 95% !important;
+  justify-content: space-evenly;
+  /* width: 95% !important; */
+}
+
+
+#popover-contained{
+  max-width: 700px;
+  width: 700px;
 }
 
 .msg-type input,.msg-type span{
-  height: 85%;
+  height: 60%;
+}
+
+.msg-type input{
+  width: 84%;
+}
+
+.msg-type span{
+  display: flex;
+  background-color: transparent;
+  border: 0;
+  justify-content: center;
+  align-items: center;
+  width: 8%;
 }
 
 .me{
@@ -193,10 +229,6 @@
 
 .me div{
   border-top-right-radius:0px ;
-}
-
-.not-me div{
-  border-top-left-radius:0px ;
 }
 
 .me::after{
@@ -210,6 +242,10 @@
   border-left-style: solid ;
 
   border-bottom: 12px solid transparent;
+}
+
+.not-me div{
+  border-top-left-radius:0px ;
 }
 
 .not-me::before{

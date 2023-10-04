@@ -14,7 +14,7 @@ function App() {
       {isAuth ? 
             <div className="App-container bg-dark" style={{ height: window.innerHeight, width: window.innerWidth }}>
               <NavPage isMobile={isMobile}/>
-              <ChatPage isMobile={isMobile}/>             
+              <ChatPage isMobile={isMobile}/>     
             </div>
       :<Auth setIsAuth={setIsAuth}/>}
     </StateProvider>
