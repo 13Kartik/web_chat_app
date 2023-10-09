@@ -8,7 +8,7 @@ export const BotChat = () => {
     return (
         <div className='chat-container' style={{ height: '80%' }}>
             {chatBotMessages.map((message, index) => (
-                <Message key={index} data={message.data} type={message.type} sender={message.sender} />
+                <Message key={index} props={message} type={message.type}/>
             ))}
         </div>
     );

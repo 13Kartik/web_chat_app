@@ -4,6 +4,9 @@ import React,{ useContext, useEffect } from "react";
 import { UserContext } from "../context/UserContext.js";
 import { db } from "../firebase-config";
 import { doc, setDoc } from "firebase/firestore";
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import google_icon from '../icons/google.png'
 
 export const Auth = ({ setIsAuth }) => {
   const {
@@ -55,9 +58,18 @@ export const Auth = ({ setIsAuth }) => {
   if (!senderId || !senderName || !senderPic) {
     return (
       <>
-        <div>
-          <p>Sign In With Google To Continue</p>
-          <button onClick={signInWithGoogle}>Sign In With Google</button>
+        <div className="App-container bg-dark" style={{ height: window.innerHeight, width: window.innerWidth }}>
+          <Card border="primary" className="bg-dark">
+            <Card.Body>
+              <Card.Title className='text-primary fs-4'>Sign In With Google To Continue</Card.Title>
+              <div className="p-3 d-flex align-items-center justify-content-center">
+                <Button variant="outline-info" className="d-flex align-items-center fs-3" onClick={signInWithGoogle}>
+                  <img src={google_icon} height='32px' width='32px'></img>
+                  <p className="text-center ms-2 mb-0">Login</p>
+                </Button>
+              </div>
+            </Card.Body>
+          </Card>
         </div>
       </>
     );

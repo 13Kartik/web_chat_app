@@ -40,46 +40,71 @@ function ChatFooter() {
     }
   };
 
-  //translate
+  //Translate:
+
+  //Inference API(Faster but not reliable):
   async function translator() {
+    const url = 'https://api-inference.huggingface.co/models/Kartik1302/nllb-200-distilled-600M';
+
+    // Define the input data
+    const inputData = {
+      "inputs": message_text,
+      "parameters": {
+          "src_lang": src,
+          "tgt_lang": tgt
+      }
+    };
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { Authorization: "Bearer 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" },
+            body: JSON.stringify(inputData),
+        });
+        const result = await response.json();
+        console.log(result);
+        set_message_text(result[0].translation_text);
+    } catch (error) {
+      console.error("An error occurred:", error);
+      console.error("Inference APi Unavailable,Using SLow transalator");
+      slow_translator();
+    }
+  }
+
+  //Gradio Space API(Slow but reliable):
+  async function slow_translator() {
     const url = 'https://kartik1302-facebook-nllb-600m-gradio.hf.space/api/predict';
 
     // Define the input data
     const inputData = {
-    "data": [
-      src,
-      tgt,
-      message_text,
-      ] 
+      "data":[
+        src,
+        tgt,
+        message_text
+      ]
     };
 
     try {
         const response = await fetch(url, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(inputData),
-        });
-
-        if (response.ok) {
-            const result = await response.json();
-            set_message_text(result.data[0].text);
-        } else {
-            console.error('Error:', response.status, response.statusText);
-        }
+        });      
+        const result = await response.json();
+        console.log(result.data[0].text);
+        set_message_text(result.data[0].text);
     } catch (error) {
         console.error('Error:', error);
     }
   }
 
-  const send_message = async (data,type) => {
+  const send_message = async (data,type,filename='') => {
     console.log('I am Active');
     const chat_room = chat_rooms.find((room)=>room.id===active_room_id);
     chat_room.messages.push({
       sender: senderId,
-      type: type, //'text',
-      data: data //message_text
+      type: type, 
+      data: data, 
+      filename: filename //file name if any
     });
 
     try{
@@ -92,17 +117,18 @@ function ChatFooter() {
   };
 
   const upload_file = async (event) =>{
-      console.log('I am active');
+      console.log(event.target.files[0].name);
       setFileUpload(event.target.files[0]);
   };
 
   useEffect(()=>{
     if (fileUpload !== null){
+      const file_pattern = /\.(png|jpeg)$/i;
+      const fileType = file_pattern.test(fileUpload.name) ? 'img' : 'document';
       const fileRef = ref(storage, `${active_room_id}/files/${fileUpload.name + v4()}`);
       uploadBytes(fileRef, fileUpload).then((snapshot) => {
         getDownloadURL(snapshot.ref).then((url) => {
-          send_message(url,'file');
-          console.log(url);
+          send_message(url,fileType,fileUpload.name);
         });
       });
     }
@@ -118,7 +144,7 @@ function ChatFooter() {
           ))}
         </Form.Select>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="white" className="bi bi-arrow-right" viewBox="0 0 16 16">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" className="bi bi-arrow-right" viewBox="0 0 16 16">
           <path fillRule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
         </svg>
 
@@ -128,7 +154,7 @@ function ChatFooter() {
           ))}
         </Form.Select>
 
-        <Button variant='info' className='fs-5' onClick={translator}>Translate</Button>
+        <Button variant='info' onClick={translator}>Translate</Button>
       </div>
 
       <InputGroup className='msg-type' style={{height:`${translate?'50%':'100%'}`}}>

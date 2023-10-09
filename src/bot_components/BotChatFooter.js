@@ -7,6 +7,9 @@ function BotChatFooter() {
   const [message_text, set_message_text] = useState('');
   const { senderId,chatBotMessages,setChatBotMessages } = useContext(UserContext);
 
+  const bot1='https://kartik1302-mistral-7b-instruct.hf.space/api/predict';
+  const bot2='https://kartik1302-falcon-gpt4all-7b.hf.space/api/predict';
+
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') {
       if(message_text.trim() !== ''){
@@ -26,14 +29,20 @@ function BotChatFooter() {
     setChatBotMessages(messages=>[...messages,new_message]);
   };
 
-  const response = async (question) =>{
+  const receive_message = (data) =>{
+    //creating message and storing in local storage
+    const new_message = {
+        sender: 'ChatBot',
+        type: 'text',
+        data: data
+      };
+    setChatBotMessages(messages=>[...messages,new_message]);
+  }
 
+  const response = async (question,url=bot1) =>{
     // Create an AbortController instance
     const controller = new AbortController();
     const { signal } = controller;
-
-    const url = 'https://kartik1302-falcon-gpt4all-7b.hf.space/api/predict';
-
     // Define the input data
     const inputData = {
         "data": [
@@ -49,28 +58,24 @@ function BotChatFooter() {
             body: JSON.stringify(inputData),
             signal,
         });
-        if (response.ok) {
-            const result = await response.json();
-
-            //creating message and storing in local storage
-            const new_message = {
-                sender: 'ChatBot',
-                type: 'text',
-                data: result.data[0].response 
-              };
-              setChatBotMessages(messages=>[...messages,new_message]);
-        } else {
-            console.error('Error:', response.status, response.statusText);
-        }
+        const result = await response.json();
+        receive_message(result.data[0].response);
     }
     catch(error){
-        console.error('Error:', error);
+      if (url===bot2) {
+        // Handle other types of errors
+        console.error("An error occurred:", error);
+      } else {
+        //slow but reliable
+        response(question,bot2);        
+      }
     }
     finally {
       // Clean up: abort the fetch request if the component is unmounted
       controller.abort();
     }
   };
+
   useEffect(() => {
     // Convert botMessages to JSON and store it in localStorage
     localStorage.setItem('chatBotMessages', JSON.stringify(chatBotMessages));

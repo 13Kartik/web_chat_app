@@ -33,7 +33,7 @@ export const Chat = () => {
   return (
     <div className='chat-container' style={{height:`${translate?'70%':'80%'}`}}>
       {messages.map((message,index) => (
-        <Message key={index} data={message.data} type={message.type} sender={message.sender} />
+        <Message key={index} props={message}/>
       ))}
     </div>
   );

@@ -28,14 +28,23 @@
   border: 1px solid;
 }
 
-
 /* NavHeader */
 .nav-header{
   height: 10%;
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
+
+.nav-header svg{
+  height: 24px;
+  width: 24px;
+}
+
+/* .nav-header .btn{
+  background-color: #394047;
+} */
 
 .search-bar{
   display: flex !important;
@@ -167,6 +176,11 @@
   width:auto;
 }
 
+.message img{
+  max-height:256px;
+  max-width:512px;
+}
+
 .chat-footer{
   display: flex;
   flex-direction: column;
@@ -185,25 +199,23 @@
 
 .translation-options select{
   width: 24%;
-  /* max-height: 30%;
-  overflow-y: auto; */
 }
 
 .translation-options button{
+  font-weight: 400;
   width: 10%;
+}
+
+.translation-options svg{
+  height: 32px;
+  width: 32px;
 }
 
 .msg-type{
   display: flex !important;
   align-items: center !important;
   justify-content: space-evenly;
-  /* width: 95% !important; */
-}
-
-
-#popover-contained{
-  max-width: 700px;
-  width: 700px;
+  width: 100% !important;
 }
 
 .msg-type input,.msg-type span{
@@ -211,7 +223,7 @@
 }
 
 .msg-type input{
-  width: 84%;
+  width: 88% !important;
 }
 
 .msg-type span{
@@ -220,7 +232,7 @@
   border: 0;
   justify-content: center;
   align-items: center;
-  width: 8%;
+  width: 6%;
 }
 
 .me{
@@ -261,7 +273,6 @@
   border-bottom: 12px solid transparent;
 }
 
-
 /* Mobile devlopment */
 @media only screen and (max-width: 600px) {
   .back-btn{
@@ -269,9 +280,6 @@
   }
 
   .nav-page{
-    width: 95%;
-  }
-  .chat-page{
     width: 95%;
   }
 
@@ -291,6 +299,37 @@
     height: 74.5%;
     width: 16%;
   }
+
+  .chat-page{
+    width: 95%;
+  }
+
+  .message img{
+    max-height:256px;
+    max-width:256px;
+  }
+
+  .msg-type input{
+    width: 66% !important;
+  }
+  
+  .msg-type span{
+    width: 17%;
+  }
+
+  .translation-options select{
+    width: 25%;
+  }
+  
+  .translation-options button{
+    width: 25%;
+  }
+
+  .translation-options svg{
+    height: 21px;
+    width: 21px;
+  }  
+
 }
 
 @media only screen and (max-width: 400px){

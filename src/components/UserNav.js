@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import User from './UserItem'
 import Bot from '../bot_components/BotItem';
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -8,7 +8,8 @@ import { db } from "../firebase-config";
 
 function UserNav() {
 
-  const {user_list,set_user_list,senderId} = useContext(UserContext);
+  const {user_list,set_user_list,search_name,currect_user_list,set_currect_user_list,senderId} = useContext(UserContext);
+  const [showBot,setShowBot]=useState(true);
 
   const remove_sender = (e) => {
     return e.id !== senderId;
@@ -22,7 +23,7 @@ function UserNav() {
 
       const unsubscribe = onSnapshot(users_query, (snapshot) => {
         const usersData = snapshot.docs.map((doc) => ({
-          id: doc.id, 
+          id: doc.id,
           ...doc.data(),
         }));
         const filtered_data=usersData.filter(remove_sender);
@@ -36,11 +37,22 @@ function UserNav() {
     }
   },[]);
 
+  useEffect(()=>{
+    const search_pattern = new RegExp('^'+search_name, "i");
+    setShowBot(search_pattern.test('Chat Bot'));
+    set_currect_user_list(user_list.filter((user)=>{
+      return search_pattern.test(user.username);
+    }));
+  },[search_name,user_list]);
+
   return (
     <div className='user-container'>   
       <ListGroup>
-          <Bot key='ChatBot' info={{id:'ChatBot',username:'Chat Bot',userPic:'https://firebasestorage.googleapis.com/v0/b/web-chat-app-a23a3.appspot.com/o/Bot%2Fbot_icon.png?alt=media&token=f4c2d539-f341-4fd4-9bad-0ae2569878d1&_gl=1*13ud779*_ga*MTc3MDk4NTkxMy4xNjk0NzgyODIy*_ga_CW55HF8NVT*MTY5NjI3MDcwNS41My4xLjE2OTYyNzA4MDguMjIuMC4w'}}/> 
-          {user_list.map((user_obj)=>{
+          {showBot?
+            <Bot key='ChatBot' info={{id:'ChatBot',username:'Chat Bot',userPic:'https://firebasestorage.googleapis.com/v0/b/web-chat-app-a23a3.appspot.com/o/Bot%2Fbot_icon.png?alt=media&token=f4c2d539-f341-4fd4-9bad-0ae2569878d1&_gl=1*13ud779*_ga*MTc3MDk4NTkxMy4xNjk0NzgyODIy*_ga_CW55HF8NVT*MTY5NjI3MDcwNS41My4xLjE2OTYyNzA4MDguMjIuMC4w'}}/>
+            :''
+          }
+          {currect_user_list.map((user_obj)=>{
               return <User key={user_obj.id} info={user_obj}/>
           })}
       </ListGroup>
