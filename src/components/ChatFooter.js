@@ -124,7 +124,7 @@ function ChatFooter() {
 
   useEffect(()=>{
     if (fileUpload !== null){
-      const file_pattern = /\.(png|jpeg)$/i;
+      const file_pattern = /\.(png|jpg|jpeg)$/i;
       const fileType = file_pattern.test(fileUpload.name) ? 'img' : 'document';
       const fileRef = ref(storage, `${active_room_id}/files/${fileUpload.name + v4()}`);
       uploadBytes(fileRef, fileUpload).then((snapshot) => {
