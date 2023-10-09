@@ -57,7 +57,7 @@ function ChatFooter() {
     try {
         const response = await fetch(url, {
             method: 'POST',
-            headers: { Authorization: "Bearer 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" },
+            headers: { 'Authorization': "Bearer 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" },
             body: JSON.stringify(inputData),
         });
         const result = await response.json();
@@ -86,7 +86,8 @@ function ChatFooter() {
     try {
         const response = await fetch(url, {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: {'Authorization': "Bearer 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",
+                      'Content-Type': 'application/json'},
             body: JSON.stringify(inputData),
         });      
         const result = await response.json();

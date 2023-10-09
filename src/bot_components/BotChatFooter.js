@@ -53,6 +53,7 @@ function BotChatFooter() {
         const response = await fetch(url, {
             method: 'POST',
             headers: {
+                'Authorization': "Bearer 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",
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(inputData),
@@ -67,6 +68,7 @@ function BotChatFooter() {
         console.error("An error occurred:", error);
       } else {
         //slow but reliable
+        console.log('using slow bot');
         response(question,bot2);        
       }
     }
